@@ -21,8 +21,9 @@ private:
 	CRect	m_originalRect;
 
 	void	oglCreate(CRect rect, CWnd *parent);
+	void    oglInitialize(void);
 
-	
+	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnPaint();
 	DECLARE_MESSAGE_MAP()
 };
