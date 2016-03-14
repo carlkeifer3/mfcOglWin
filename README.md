@@ -1,0 +1,2 @@
+# mfcOglWin
+mfc OpenGL window
