@@ -3,7 +3,7 @@
 //
 
 #pragma once
-
+#include "OpenGLControl.h"
 
 // CoglmfcDialogDlg dialog
 class CoglmfcDialogDlg : public CDialogEx
@@ -15,12 +15,13 @@ public:
 // Dialog Data
 	enum { IDD = IDD_OGLMFCDIALOG_DIALOG };
 
-	protected:
+private:
+	COpenGLControl m_oglWindow;
+
+protected:
 	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV support
 
-
 // Implementation
-protected:
 	HICON m_hIcon;
 
 	// Generated message map functions

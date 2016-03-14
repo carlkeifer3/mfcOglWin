@@ -1,12 +1,17 @@
-﻿Build started 3/14/2016 9:56:24 AM.
+﻿Build started 3/14/2016 11:01:51 AM.
      1>Project "C:\Users\testex\Documents\GitHub\oglmfcDialog\oglmfcDialog\oglmfcDialog.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D _UNICODE /D UNICODE /D _AFXDLL /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\oglmfcDialog.pch" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt OpenGLControl.cpp
          OpenGLControl.cpp
-     1>c:\users\testex\documents\github\oglmfcdialog\oglmfcdialog\openglcontrol.cpp(19): error C2440: 'initializing' : cannot convert from 'const char [7]' to 'LPCTSTR'
-                 Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
-     1>Done Building Project "C:\Users\testex\Documents\GitHub\oglmfcDialog\oglmfcDialog\oglmfcDialog.vcxproj" (Build target(s)) -- FAILED.
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\testex\Documents\GitHub\oglmfcDialog\Debug\oglmfcDialog.exe" /INCREMENTAL /NOLOGO opengl32.lib glu32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /manifestinput:"C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\Include\Manifest\dpiaware.manifest" /DEBUG /PDB:"C:\Users\testex\Documents\GitHub\oglmfcDialog\Debug\oglmfcDialog.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /ENTRY:"wWinMainCRTStartup" /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\testex\Documents\GitHub\oglmfcDialog\Debug\oglmfcDialog.lib" /MACHINE:X86 Debug\oglmfcDialog.res
+         Debug\oglmfcDialog.obj
+         Debug\oglmfcDialogDlg.obj
+         Debug\OpenGLControl.obj
+         Debug\stdafx.obj
+         oglmfcDialog.vcxproj -> C:\Users\testex\Documents\GitHub\oglmfcDialog\Debug\oglmfcDialog.exe
+     1>Done Building Project "C:\Users\testex\Documents\GitHub\oglmfcDialog\oglmfcDialog\oglmfcDialog.vcxproj" (Build target(s)).
 
-Build FAILED.
+Build succeeded.
 
-Time Elapsed 00:00:00.17
+Time Elapsed 00:00:00.45

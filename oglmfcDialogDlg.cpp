@@ -96,7 +96,17 @@ BOOL CoglmfcDialogDlg::OnInitDialog()
 	SetIcon(m_hIcon, TRUE);			// Set big icon
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
-	// TODO: Add extra initialization here
+	CRect rect;
+
+	// Get size and position of the picture control
+	GetDlgItem(IDC_OPENGL)->GetWindowRect(rect);
+
+	// Convert screen coordinates to client coordinates
+	ScreenToClient(rect);
+
+	m_oglWindow.oglCreate(rect, this);
+
+	m_oglWindow.m_unpTimer = m_oglWindow.SetTimer(1, 1, 0);
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
