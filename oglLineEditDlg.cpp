@@ -96,7 +96,15 @@ BOOL CoglLineEditDlg::OnInitDialog()
 	SetIcon(m_hIcon, TRUE);			// Set big icon
 	SetIcon(m_hIcon, FALSE);		// Set small icon
 
-	// TODO: Add extra initialization here
+	CRect rect;
+
+	GetDlgItem(IDC_LineEdit)->GetWindowRect(rect);
+
+	// Convert screen coordinates to clien coordinates
+	ScreenToClient(rect);
+
+	m_oglLineEditWin.oglCreate(rect, this);
+	m_oglLineEditWin.m_unpTimer = m_oglLineEditWin.SetTimer(1, 1, 0);
 
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
