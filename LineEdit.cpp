@@ -73,11 +73,11 @@ void CLineEditControl::oglInitialize(void)
 	//basic Setup:
 	//
 	// Set color to use when clearing the background
-	glClearColor(0.5f, 0.6f, 0.6f, 1.0f);
+	glClearColor(0.5f, 0.5f, 0.55f, 1.0f);
 	glClearDepth(1.0f);
 
-	glFrontFace(GL_CW);		// sets winding order to clockwise
-	glCullFace(GL_BACK);	// removes all the back faces
+	//glFrontFace(GL_CW);		// sets winding order to clockwise
+	//glCullFace(GL_BACK);	// removes all the back faces
 
 	// Send draw request
 	OnDraw(NULL);
@@ -132,12 +132,13 @@ void CLineEditControl::OnSize(UINT nType, int cx, int cy)
 	//projection Matrix
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-
-	gluPerspective(35.0f, (float)cx / (float)cy, 0.01f, 2000.0f);
+			
+	// set up an orthographic projection with the same near clip plane
+	glOrtho(-1.0*cx,  1.0*cx,-1.0*cy, 1.0*cy, -20, 20);
 
 	// Model Matrix
 	glMatrixMode(GL_MODELVIEW);
-
+	glLoadIdentity();
 }
 
 void CLineEditControl::oglDrawScene(void)
@@ -146,15 +147,17 @@ void CLineEditControl::oglDrawScene(void)
 	glPolygonMode(GL_FRONT, GL_LINE);
 	glPolygonMode(GL_FRONT, GL_FILL);
 
-	glBegin(GL_LINE);
-		glColor4ub( 255, 155, 255, 255);
-		glVertex3f( -1.0f,  1.0f, -1.0f);
-		glVertex3f( -1.0f, -1.0f,  1.0f);
+	glLineWidth(10.0f);
+	glBegin(GL_LINES);
+		glColor4ub( 000, 200, 255, 255);
+		glVertex3f( 0.0f,  1.0f, 0.0f);
+		glVertex3f( 2.0f,  0.0f, 0.0f);
 	glEnd();
-	glBegin(GL_POINT);
-		glColor4ub( 000, 155, 255, 255);
-		glVertex3f( -1.0f,  1.0f, -1.0f);
-		glVertex3f( -1.0f, -1.0f,  1.0f);
+	glPointSize(15.0f);
+	glBegin(GL_POINTS);
+		glColor4ub( 000, 000, 002, 255);
+		glVertex3f( 0.0f,  1.0f, 0.0f);
+		glVertex3f( 1.0f,  1.0f, 0.0f);
 	glEnd();
 }
 
