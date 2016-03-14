@@ -11,7 +11,10 @@ END_MESSAGE_MAP()
 
 CLineEditControl::CLineEditControl(void)
 {
-
+	m_fPosX  = 0.0f;
+	m_fPosY  = 0.0f;
+	m_fZoom  = 0.0f;
+	m_fZoom  = 5.0f;
 }
 
 CLineEditControl::~CLineEditControl(void)
@@ -92,7 +95,8 @@ void CLineEditControl::OnPaint()
 void CLineEditControl::OnDraw(CDC *pDC)
 {
 	 glLoadIdentity();
-	 glTranslatef(0.0f, 0.0f, -5.0f);
+	 glTranslatef(0.0f, 0.0f, -m_fZoom);
+	 glTranslatef(m_fPosX, m_fPosY, 0.0f);
 }
 
 void CLineEditControl::OnTimer(UINT_PTR nIDEvent)
@@ -134,7 +138,7 @@ void CLineEditControl::OnSize(UINT nType, int cx, int cy)
 	glLoadIdentity();
 			
 	// set up an orthographic projection with the same near clip plane
-	glOrtho(-1.0*cx,  1.0*cx,-1.0*cy, 1.0*cy, -20, 20);
+	glOrtho(0, cx, 0, cy, -1000, 1000);
 
 	// Model Matrix
 	glMatrixMode(GL_MODELVIEW);
@@ -143,21 +147,23 @@ void CLineEditControl::OnSize(UINT nType, int cx, int cy)
 
 void CLineEditControl::oglDrawScene(void)
 {
+	// draw line object
+
 	// Wireframe Mode
 	glPolygonMode(GL_FRONT, GL_LINE);
 	glPolygonMode(GL_FRONT, GL_FILL);
 
-	glLineWidth(10.0f);
+	glLineWidth(2.0f);
 	glBegin(GL_LINES);
 		glColor4ub( 000, 200, 255, 255);
-		glVertex3f( 0.0f,  1.0f, 0.0f);
-		glVertex3f( 2.0f,  0.0f, 0.0f);
+		glVertex3f( 100.0f, 300.0f, 0.0f);
+		glVertex3f( 100.0f,  20.0f, 0.0f);
 	glEnd();
 	glPointSize(15.0f);
 	glBegin(GL_POINTS);
 		glColor4ub( 000, 000, 002, 255);
-		glVertex3f( 0.0f,  1.0f, 0.0f);
-		glVertex3f( 1.0f,  1.0f, 0.0f);
+		glVertex3f( 100.0f, 300.0f, 0.0f);
+		glVertex3f( 100.0f,  20.0f, 0.0f);
 	glEnd();
 }
 
@@ -168,5 +174,26 @@ void CLineEditControl::OnMouseMove(UINT nFlags, CPoint point)
 	m_fLastX  = (float)point.x;
 	m_fLastY  = (float)point.y;
 
+	// Left Mouse Button
+	if (nFlags & MK_LBUTTON)
+	{
+		// add points or move points
+	}
+	// Middle Mouse Button
+	else if ( nFlags & MK_MBUTTON)
+	{
+		m_fZoom -= (float) 0.1f * diffY;
+	}
+	// Right Mouse Button
+	else if ( nFlags & MK_RBUTTON)
+	{
+		m_fPosX += (float)diffX;
+		m_fPosY -= (float)diffY;
+	}
 
+	//check our line object for hits
+
+
+	OnDraw(NULL);
+	CWnd::OnMouseMove(nFlags, point);
 }
