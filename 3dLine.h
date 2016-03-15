@@ -14,6 +14,8 @@ public:
 	C3DLine();
 	virtual ~C3DLine(void){};
 	
+	float pointSize;
+
 	iColorRGBA	baseCol;
 	iColorRGBA  selCol;
 
@@ -22,5 +24,7 @@ public:
 
 	void CreateLine();
 	void OpenGLDraw();
-	void HitTest(Vector3D rayCast[], float radius);
+	bool HitTest(Vector3D rayCast[], float radius);
+	
+	void addPoint(Vector3D point);
 };

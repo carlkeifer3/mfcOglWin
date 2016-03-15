@@ -7,6 +7,8 @@ BEGIN_MESSAGE_MAP(CLineEditControl, CWnd)
 	ON_WM_TIMER()
 	ON_WM_SIZE()
 	ON_WM_MOUSEMOVE()
+	ON_WM_LBUTTONDOWN()
+	ON_WM_LBUTTONUP()
 END_MESSAGE_MAP()
 
 CLineEditControl::CLineEditControl(void)
@@ -166,10 +168,34 @@ void CLineEditControl::OnMouseMove(UINT nFlags, CPoint point)
 	m_fLastX  = (float)point.x;
 	m_fLastY  = (float)point.y;
 
+	//check our line object for hits
+	GLint viewport[4];
+	glGetIntegerv (GL_VIEWPORT, viewport);
+	
+	float realy = (float)viewport[3] - (GLint) point.y - 1;
+	Vector3D rayCast[3];
+
+	rayCast[0].x = (float)point.x;
+	rayCast[0].y = realy;
+	rayCast[0].z = -100.0f;
+
+	rayCast[1].x = (float)point.x;
+	rayCast[1].y = realy;
+	rayCast[1].z = 100.0f;
+
+	TRACE("\n*****************************************\n");
+	TRACE("**	mouse Position\n");
+	TRACE("**		X: %i \n", point.x);
+	TRACE("**		Y: %i \n", point.y);
+	TRACE("*****************************************\n");
+	
+	rayCast[0].trace("screen position");
+
 	// Left Mouse Button
 	if (nFlags & MK_LBUTTON)
 	{
-		// add points or move points
+
+
 	}
 	// Middle Mouse Button
 	else if ( nFlags & MK_MBUTTON)
@@ -184,6 +210,27 @@ void CLineEditControl::OnMouseMove(UINT nFlags, CPoint point)
 	}
 	else
 	{
+		Vector3D unitVec = rayCast[1] - rayCast[0];
+		Vector3D unitPow = unitVec^2.0f;
+		float L = (float)sqrt(unitPow.x + unitPow.y + unitPow.z);
+		rayCast[2] = unitVec / L;
+		
+		bool hit = line.HitTest(rayCast, 15.0f);
+
+		if ( hit == TRUE)
+			m_CurrentTool = Point_Sel;
+		else 
+			m_CurrentTool = Camera;
+	}
+	OnDraw(NULL);
+	CWnd::OnMouseMove(nFlags, point);
+}
+
+
+void CLineEditControl::OnLButtonDown(UINT nFlags, CPoint point)
+{
+	if(m_CurrentTool == Camera)
+	{
 		//check our line object for hits
 		GLint viewport[4];
 		glGetIntegerv (GL_VIEWPORT, viewport);
@@ -194,27 +241,20 @@ void CLineEditControl::OnMouseMove(UINT nFlags, CPoint point)
 		rayCast[0].x = (float)point.x;
 		rayCast[0].y = realy;
 		rayCast[0].z = -100.0f;
-		
-		rayCast[1].x = (float)point.x;
-		rayCast[1].y = realy;
-		rayCast[1].z = 100.0f;
 
+		// add points or move points
+		rayCast[0].z= 0.0f;
 
-		TRACE("\n*****************************************\n");
-		TRACE("**	mouse Position\n");
-		TRACE("**		X: %i \n", point.x);
-		TRACE("**		Y: %i \n", point.y);
-		TRACE("*****************************************\n");
-	
-		rayCast[0].trace("screen position");
-
-		Vector3D unitVec = rayCast[1] - rayCast[0];
-		Vector3D unitPow = unitVec^2.0f;
-		float L = (float)sqrt(unitPow.x + unitPow.y + unitPow.z);
-		rayCast[2] = unitVec / L;
-		
-		line.HitTest(rayCast, 15.0f);
+		line.addPoint(rayCast[0]);
 	}
-	OnDraw(NULL);
-	CWnd::OnMouseMove(nFlags, point);
+
+	CWnd::OnLButtonDown(nFlags, point);
+}
+
+
+void CLineEditControl::OnLButtonUp(UINT nFlags, CPoint point)
+{
+	// TODO: Add your message handler code here and/or call default
+
+	CWnd::OnLButtonUp(nFlags, point);
 }

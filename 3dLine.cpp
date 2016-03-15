@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "3dLine.h"
 
+#include <algorithm>
+
 C3DLine::C3DLine()
 {
 	baseCol.r = 000;
@@ -12,6 +14,23 @@ C3DLine::C3DLine()
 	selCol.g = 255;
 	selCol.b = 150;
 	selCol.a = 255;
+
+	pointSize = 15.0f;
+}
+
+void C3DLine::addPoint(Vector3D point)
+{
+	iColorRGBA color;
+	color.set(baseCol);
+	
+	line.push_back(point);
+	lineCol.push_back(color);
+
+	auto comparison = [](Vector3D left, Vector3D right)->bool{
+		return(left.y > right.y);
+	};
+
+	std::sort(line.begin(), line.end(), comparison);
 }
 
 void C3DLine::CreateLine()
@@ -42,14 +61,15 @@ void C3DLine::OpenGLDraw()
 	glPolygonMode(GL_FRONT, GL_FILL);
 
 	glLineWidth(2.0f);
-	glBegin(GL_LINES);
+	glBegin(GL_LINE_LOOP);
+	glColor4ub( 000, 155, 255, 255);
 	for(int i=0; i<(int)line.size(); i++)
 	{
-		glColor4ub( 000, 155, 255, 255);
 		glVertex3f( line[i].x, line[i].y, line[i].z);
 	}
 	glEnd();
-	glPointSize(15.0f);
+
+	glPointSize(pointSize);
 	glBegin(GL_POINTS);
 	for(int i=0; i<(int)line.size(); i++)
 	{
@@ -59,20 +79,22 @@ void C3DLine::OpenGLDraw()
 	glEnd();
 }
 
-void C3DLine::HitTest(Vector3D rayCast[], float radius)
+bool C3DLine::HitTest(Vector3D rayCast[], float radius)
 {
 	// now we can run our hit test
 	for(int i=0; i<(int)line.size();i++)
 	{
-		bool hit = line[i].hitTest(rayCast, 15.0f);
+		bool hit = line[i].hitTest(rayCast, pointSize);
 
 		if (hit == TRUE)
 		{
 			lineCol[i] = lineCol[i].set(selCol);
+			return TRUE;
 		}
 		else
 		{
 			lineCol[i] = lineCol[i].set(baseCol);
 		}
 	}
+	return FALSE;
 }

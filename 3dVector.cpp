@@ -3,7 +3,6 @@
 
 #include <math.h>
 
-
 void Vector3D::trace(const char string[])
 {
 	Vector3D vector = *this;

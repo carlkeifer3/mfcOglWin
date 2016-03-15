@@ -6,6 +6,8 @@
 #include <gl\GLU.h>
 #include <vector>
 
+#define Camera		0
+#define Point_Sel	1
 
 class CLineEditControl : public CWnd
 {
@@ -25,6 +27,8 @@ public:
 	BOOL m_bIsMaximized;
 
 	C3DLine line;
+
+	GLuint  m_CurrentTool;
 
 	float	m_fLastX;		// last known mouse X position
 	float   m_fLastY;		// last known mouse Y position
@@ -46,4 +50,6 @@ public:
 	afx_msg void	OnPaint();
 	afx_msg void	OnMouseMove(UINT nFlags, CPoint point);
 	DECLARE_MESSAGE_MAP();
+	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
 };
