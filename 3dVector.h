@@ -1,14 +1,11 @@
 #pragma once
 #include "afxwin.h"
 
-
-
-
-class Vector3D
+class CVector3D
 {
 public:
-	Vector3D() : x(0.0f), y(0.0f), z(0.0f){}
-	~Vector3D(){};
+	CVector3D() : x(0.0f), y(0.0f), z(0.0f){}
+	~CVector3D(){};
 
 	float x;
 	float y;
@@ -16,20 +13,20 @@ public:
 
 	void trace(const char string[]);
 
-	bool operator==(const Vector3D &v);
-	inline bool operator!=(const Vector3D &v){return !operator==(v);};
+	bool operator==(const CVector3D &v);
+	inline bool operator!=(const CVector3D &v){return !operator==(v);};
 	//Vector3D & operator = (const Vector3D &v);
-	Vector3D operator + (const Vector3D &v);
-	Vector3D operator - (const Vector3D &v);
+	CVector3D operator + (const CVector3D &v);
+	CVector3D operator - (const CVector3D &v);
 	// scalar Division
-	Vector3D operator / (float scalar);
+	CVector3D operator / (float scalar);
 	// scalar multiplication
-	Vector3D operator * (float scalar);
+	CVector3D operator * (float scalar);
 	// dot product
-	float operator * (Vector3D &v);
-	float CrossProduct(const Vector3D & v);
+	float operator * (CVector3D &v);
+	float CrossProduct(const CVector3D & v);
 
-	float facing(Vector3D rayCast[]);
-	bool hitTest(Vector3D rayCast[], float radius);
-	Vector3D operator^(float power);
+	float facing(CVector3D rayCast[]);
+	bool hitTest(CVector3D rayCast[], float radius);
+	CVector3D operator^(float power);
 };

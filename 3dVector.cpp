@@ -3,9 +3,9 @@
 
 #include <math.h>
 
-void Vector3D::trace(const char string[])
+void CVector3D::trace(const char string[])
 {
-	Vector3D vector = *this;
+	CVector3D vector = *this;
 	
 	TRACE("\n*****************************************\n");
 	TRACE("**	%s\n", string);
@@ -15,9 +15,9 @@ void Vector3D::trace(const char string[])
 	TRACE("*****************************************\n");
 }
 
-bool Vector3D::operator==(const Vector3D &v)
+bool CVector3D::operator==(const CVector3D &v)
 {
-	Vector3D vector = *this;
+	CVector3D vector = *this;
 
 	if( vector.x == v.x && vector.y == v.y && vector.z == v.z)
 	{
@@ -27,9 +27,9 @@ bool Vector3D::operator==(const Vector3D &v)
 	return FALSE;
 }
 
-Vector3D Vector3D::operator+(const Vector3D &v)
+CVector3D CVector3D::operator+(const CVector3D &v)
 {
-	Vector3D vector = *this;
+	CVector3D vector = *this;
 
 	vector.x = vector.x + v.x;
 	vector.y = vector.y + v.y;
@@ -38,9 +38,9 @@ Vector3D Vector3D::operator+(const Vector3D &v)
 	return vector;
 }
 
-Vector3D Vector3D::operator-(const Vector3D &v)
+CVector3D CVector3D::operator-(const CVector3D &v)
 {
-	Vector3D vector = *this;
+	CVector3D vector = *this;
 
 	vector.x = vector.x - v.x;
 	vector.y = vector.y - v.y;
@@ -49,9 +49,9 @@ Vector3D Vector3D::operator-(const Vector3D &v)
 	return vector;
 }
 
-Vector3D Vector3D::operator / (float scalar)
+CVector3D CVector3D::operator / (float scalar)
 {
-	Vector3D vector = *this;
+	CVector3D vector = *this;
 
 	vector.x = vector.x / scalar;
 	vector.y = vector.y / scalar;
@@ -61,9 +61,9 @@ Vector3D Vector3D::operator / (float scalar)
 
 }
 
-Vector3D Vector3D::operator * (float scalar)
+CVector3D CVector3D::operator * (float scalar)
 {
-	Vector3D vector = *this;
+	CVector3D vector = *this;
 
 	vector.x = vector.x * scalar;
 	vector.y = vector.y * scalar;
@@ -72,9 +72,9 @@ Vector3D Vector3D::operator * (float scalar)
 	return vector;
 }
 
-float Vector3D::operator * (Vector3D &v)
+float CVector3D::operator * (CVector3D &v)
 {
-	Vector3D vector = *this;
+	CVector3D vector = *this;
 	float product;
 
 	product  = vector.x * v.x;
@@ -84,18 +84,18 @@ float Vector3D::operator * (Vector3D &v)
 	return product;
 }
 
-float Vector3D::CrossProduct(const Vector3D & v)
+float CVector3D::CrossProduct(const CVector3D & v)
 {
-	Vector3D vector = *this;
+	CVector3D vector = *this;
 
 	// space to create a cross product check
 
 	return 0.0;
 }
 
-float Vector3D::facing(Vector3D rayCast[])
+float CVector3D::facing(CVector3D rayCast[])
 {
-	Vector3D vector = *this;
+	CVector3D vector = *this;
 
 	// this is the vector from the origin to the hit test center
 	vector = vector - rayCast[0];
@@ -105,9 +105,9 @@ float Vector3D::facing(Vector3D rayCast[])
 	return tc;
 }
 
-bool Vector3D::hitTest(Vector3D rayCast[], float radius)
+bool CVector3D::hitTest(CVector3D rayCast[], float radius)
 {
-	Vector3D vector = *this;
+	CVector3D vector = *this;
 
 	float tc = vector.facing(rayCast);
 
@@ -144,9 +144,9 @@ bool Vector3D::hitTest(Vector3D rayCast[], float radius)
 	}
 }
 
-Vector3D Vector3D::operator^(float power)
+CVector3D CVector3D::operator^(float power)
 {
-	Vector3D vector = *this;
+	CVector3D vector = *this;
 
 	vector.x = pow(vector.x, power);
 	vector.y = pow(vector.y, power);

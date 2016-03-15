@@ -20,7 +20,7 @@ C3DLine::C3DLine()
 	m_iAddRem = Points_Add;
 }
 
-void C3DLine::addPoint(Vector3D point)
+void C3DLine::addPoint(CVector3D point)
 {
 	iColorRGBA color;
 	color.set(m_baseCol);
@@ -48,14 +48,14 @@ void C3DLine::removePoint()
 
 void C3DLine::orderPoints()
 {
-	auto comparison = [](Vector3D left, Vector3D right)->bool{
+	auto comparison = [](CVector3D left, CVector3D right)->bool{
 		return(left.y > right.y);
 	};
 
 	std::sort(m_Line.begin(), m_Line.end(), comparison);
 }
 
-void C3DLine::movePoint(Vector3D moveto)
+void C3DLine::movePoint(CVector3D moveto)
 {
 	m_Line[m_iCurrentSel].x = moveto.x;
 	m_Line[m_iCurrentSel].y = moveto.y;
@@ -64,7 +64,7 @@ void C3DLine::movePoint(Vector3D moveto)
 
 void C3DLine::CreateLine()
 {
-	Vector3D point;
+	CVector3D point;
 	iColorRGBA color;
 
 	color.set(m_baseCol);
@@ -109,7 +109,7 @@ void C3DLine::OpenGLDraw()
 	glEnd();
 }
 
-bool C3DLine::HitTest(Vector3D rayCast[], float radius)
+bool C3DLine::HitTest(CVector3D rayCast[], float radius)
 {
 	// now we can run our hit test
 	for(int i=0; i<(int)m_Line.size();i++)

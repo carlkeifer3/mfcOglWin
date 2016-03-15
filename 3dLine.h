@@ -25,15 +25,15 @@ public:
 	iColorRGBA	m_baseCol;
 	iColorRGBA  m_selCol;
 
-	std::vector<Vector3D>	m_Line;
+	std::vector<CVector3D>	m_Line;
 	std::vector<iColorRGBA> m_LineCol;
 
 	void CreateLine();
 	void OpenGLDraw();
-	bool HitTest(Vector3D rayCast[], float radius);
+	bool HitTest(CVector3D rayCast[], float radius);
 	
-	void addPoint(Vector3D point);
-	void movePoint(Vector3D moveto);
+	void addPoint(CVector3D point);
+	void movePoint(CVector3D moveto);
 	void removePoint();
 
 	void orderPoints();

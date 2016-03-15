@@ -101,6 +101,8 @@ BOOL CoglLineEditDlg::OnInitDialog()
 	m_oglLineEditWin.oglCreate(rect, this);
 	m_oglLineEditWin.m_unpTimer = m_oglLineEditWin.SetTimer(1, 1, 0);
 
+	buttonState = 1;
+
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
@@ -154,8 +156,6 @@ HCURSOR CoglLineEditDlg::OnQueryDragIcon()
 
 void CoglLineEditDlg::OnBnClickedAddRemPts()
 {
-	// TODO: Add your control notification handler code here
-	//first change the button
 	if(buttonState == 0 )
 	{
 		GetDlgItem(IDC_Add_Rem_Pts)->SetWindowText(_T("Remove Points"));

@@ -173,7 +173,7 @@ void CLineEditControl::OnMouseMove(UINT nFlags, CPoint point)
 	glGetIntegerv (GL_VIEWPORT, viewport);
 	
 	float realy = (float)viewport[3] - (GLint) point.y - 1;
-	Vector3D rayCast[3];
+	CVector3D rayCast[3];
 
 	rayCast[0].x = (float)point.x;
 	rayCast[0].y = realy;
@@ -183,22 +183,14 @@ void CLineEditControl::OnMouseMove(UINT nFlags, CPoint point)
 	rayCast[1].y = realy;
 	rayCast[1].z = 100.0f;
 
-	TRACE("\n*****************************************\n");
-	TRACE("**	mouse Position\n");
-	TRACE("**		X: %i \n", point.x);
-	TRACE("**		Y: %i \n", point.y);
-	TRACE("*****************************************\n");
-	
-	rayCast[0].trace("screen position");
-
 	// Left Mouse Button
 	if (nFlags & MK_LBUTTON)
 	{	
-		if(line.m_iAddRem == Points_Add && line.m_iCurrentSel < line.m_Line.size())
+		if(line.m_iAddRem == Points_Add && line.m_iCurrentSel < (int)line.m_Line.size())
 		{
 			// there should be a currently active selection
 
-			Vector3D vector;
+			CVector3D vector;
 			vector.x = rayCast[0].x;
 			vector.y = rayCast[0].y;
 			vector.z = 0.0f;
@@ -220,8 +212,8 @@ void CLineEditControl::OnMouseMove(UINT nFlags, CPoint point)
 	//}
 	else
 	{
-		Vector3D unitVec = rayCast[1] - rayCast[0];
-		Vector3D unitPow = unitVec^2.0f;
+		CVector3D unitVec = rayCast[1] - rayCast[0];
+		CVector3D unitPow = unitVec^2.0f;
 		float L = (float)sqrt(unitPow.x + unitPow.y + unitPow.z);
 		rayCast[2] = unitVec / L;
 		
@@ -247,7 +239,7 @@ void CLineEditControl::OnLButtonDown(UINT nFlags, CPoint point)
 			glGetIntegerv (GL_VIEWPORT, viewport);
 	
 			float realy = (float)viewport[3] - (GLint) point.y - 1;
-			Vector3D rayCast[3];
+			CVector3D rayCast[3];
 
 			rayCast[0].x = (float)point.x;
 			rayCast[0].y = realy;
@@ -260,7 +252,7 @@ void CLineEditControl::OnLButtonDown(UINT nFlags, CPoint point)
 	{	
 		if(line.m_iAddRem == Points_Remove)
 		{
-			if(line.m_iCurrentSel < line.m_Line.size())
+			if(line.m_iCurrentSel < (int)line.m_Line.size())
 			{
 				line.removePoint();
 			}
