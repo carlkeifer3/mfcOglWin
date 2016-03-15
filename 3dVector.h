@@ -11,11 +11,15 @@ public:
 	float y;
 	float z;
 
+	void trace(const char string[]);
+
 	bool operator==(const Vector3D &v);
 	inline bool operator!=(const Vector3D &v){return !operator==(v);};
 	//Vector3D & operator = (const Vector3D &v);
 	Vector3D operator + (const Vector3D &v);
 	Vector3D operator - (const Vector3D &v);
+	// scalar Division
+	Vector3D operator / (float scalar);
 	// scalar multiplication
 	Vector3D operator * (float scalar);
 	// dot product

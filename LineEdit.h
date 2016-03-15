@@ -6,6 +6,14 @@
 #include <gl\GLU.h>
 #include <vector>
 
+typedef struct iColorRGBA
+{
+	int r;
+	int g;
+	int b;
+	int a;
+}iColorRGBA;
+
 class CLineEditControl : public CWnd
 {
 public:
@@ -23,7 +31,11 @@ public:
 
 	BOOL m_bIsMaximized;
 
-	std::vector<Vector3D> line;
+	std::vector<Vector3D>	line;
+	std::vector<iColorRGBA> lineCol;
+
+	iColorRGBA	baseCol;
+	iColorRGBA  selCol;
 
 	float	m_fLastX;		// last known mouse X position
 	float   m_fLastY;		// last known mouse Y position
@@ -36,7 +48,7 @@ public:
 	void	oglDrawScene(void);
 	void	oglCreate(CRect rect, CWnd *parent);
 
-
+	void	CreateLine();
 
 	afx_msg int		OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void	OnSize(UINT nType, int cx, int cy);

@@ -15,6 +15,16 @@ CLineEditControl::CLineEditControl(void)
 	m_fPosY  = 0.0f;
 	m_fZoom  = 0.0f;
 	m_fZoom  = 5.0f;
+
+	baseCol.r = 000;
+	baseCol.g = 000;
+	baseCol.b = 000;
+	baseCol.a = 255;
+	
+	selCol.a = 000;
+	selCol.g = 255;
+	selCol.b = 150;
+	selCol.a = 255;
 }
 
 CLineEditControl::~CLineEditControl(void)
@@ -82,6 +92,8 @@ void CLineEditControl::oglInitialize(void)
 	//glFrontFace(GL_CW);		// sets winding order to clockwise
 	//glCullFace(GL_BACK);	// removes all the back faces
 
+	CreateLine();
+
 	// Send draw request
 	OnDraw(NULL);
 }
@@ -145,25 +157,53 @@ void CLineEditControl::OnSize(UINT nType, int cx, int cy)
 	glLoadIdentity();
 }
 
+void CLineEditControl::CreateLine()
+{
+	Vector3D point;
+	iColorRGBA color;
+
+	color.r = baseCol.r;
+	color.g = baseCol.g;
+	color.b = baseCol.b;
+	color.a = baseCol.a;
+
+	point.x = 150.0f;
+	point.y = 300.0f;
+	point.z = 0.0f;
+
+	line.push_back(point);
+	lineCol.push_back(color);
+
+	point.x = 150.0f;
+	point.y = 20.0f;
+	point.z = 0.0f;
+
+	line.push_back(point);
+	lineCol.push_back(color);
+}
+
 void CLineEditControl::oglDrawScene(void)
 {
 	// draw line object
-
 	// Wireframe Mode
 	glPolygonMode(GL_FRONT, GL_LINE);
 	glPolygonMode(GL_FRONT, GL_FILL);
 
 	glLineWidth(2.0f);
 	glBegin(GL_LINES);
-		glColor4ub( 000, 200, 255, 255);
-		glVertex3f( 100.0f, 300.0f, 0.0f);
-		glVertex3f( 100.0f,  20.0f, 0.0f);
+	for(int i=0; i<(int)line.size(); i++)
+	{
+		glColor4ub( 000, 155, 255, 255);
+		glVertex3f( line[i].x, line[i].y, line[i].z);
+	}
 	glEnd();
 	glPointSize(15.0f);
 	glBegin(GL_POINTS);
-		glColor4ub( 000, 000, 002, 255);
-		glVertex3f( 100.0f, 300.0f, 0.0f);
-		glVertex3f( 100.0f,  20.0f, 0.0f);
+	for(int i=0; i<(int)line.size(); i++)
+	{
+		glColor4ub( lineCol[i].r, lineCol[i].g, lineCol[i].b, lineCol[i].a);
+		glVertex3f( line[i].x, line[i].y, line[i].z);
+	}
 	glEnd();
 }
 
@@ -190,10 +230,57 @@ void CLineEditControl::OnMouseMove(UINT nFlags, CPoint point)
 		m_fPosX += (float)diffX;
 		m_fPosY -= (float)diffY;
 	}
+	else
+	{
+		//check our line object for hits
+		GLint viewport[4];
+		glGetIntegerv (GL_VIEWPORT, viewport);
+	
+		float realy = viewport[3] - (GLint) point.y - 1;
+		Vector3D rayCast[3];
 
-	//check our line object for hits
+		rayCast[0].x = point.x;
+		rayCast[0].y = realy;
+		rayCast[0].z = -100.0f;
+		
+		rayCast[1].x = point.x;
+		rayCast[1].y = realy;
+		rayCast[1].z = 100.0f;
 
 
+		TRACE("\n*****************************************\n");
+		TRACE("**	mouse Position\n");
+		TRACE("**		X: %i \n", point.x);
+		TRACE("**		Y: %i \n", point.y);
+		TRACE("*****************************************\n");
+	
+		rayCast[0].trace("screen position");
+
+		Vector3D unitVec = rayCast[1] - rayCast[0];
+		Vector3D unitPow = unitVec^2.0f;
+		float L = (float)sqrt(unitPow.x + unitPow.y + unitPow.z);
+		rayCast[2] = unitVec / L;
+
+		// now we can run our hit test
+		for(int i=0; i<line.size();i++)
+		{
+
+			bool hit = line[i].hitTest(rayCast, 15.0f);
+
+			if (hit == TRUE)
+			{
+				lineCol[i].a = selCol.a;
+				lineCol[i].g = selCol.g;
+				lineCol[i].b = selCol.b;
+			}
+			else
+			{
+				lineCol[i].a = baseCol.a;
+				lineCol[i].g = baseCol.g;
+				lineCol[i].b = baseCol.b;
+			}
+		}
+	}
 	OnDraw(NULL);
 	CWnd::OnMouseMove(nFlags, point);
 }

@@ -3,6 +3,19 @@
 
 #include <math.h>
 
+
+void Vector3D::trace(const char string[])
+{
+	Vector3D vector = *this;
+	
+	TRACE("\n*****************************************\n");
+	TRACE("**	%s\n", string);
+	TRACE("**		X: %i \n", vector.x);
+	TRACE("**		Y: %i \n", vector.y);
+	TRACE("**		Z: %i \n", vector.z);
+	TRACE("*****************************************\n");
+}
+
 bool Vector3D::operator==(const Vector3D &v)
 {
 	Vector3D vector = *this;
@@ -35,6 +48,18 @@ Vector3D Vector3D::operator-(const Vector3D &v)
 	vector.z = vector.z - v.z;
 
 	return vector;
+}
+
+Vector3D Vector3D::operator / (float scalar)
+{
+	Vector3D vector = *this;
+
+	vector.x = vector.x / scalar;
+	vector.y = vector.y / scalar;
+	vector.z = vector.z / scalar;
+
+	return vector;
+
 }
 
 Vector3D Vector3D::operator * (float scalar)
@@ -74,10 +99,8 @@ float Vector3D::facing(Vector3D rayCast[])
 	Vector3D vector = *this;
 
 	// this is the vector from the origin to the hit test center
-	vector.x = vector.x - rayCast[0].x;
-	vector.y = vector.y - rayCast[0].y;
-	vector.z = vector.z - rayCast[0].z;
-	
+	vector = vector - rayCast[0];
+
 	float tc = vector * rayCast[2];
 
 	return tc;
