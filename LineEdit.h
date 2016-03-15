@@ -1,7 +1,10 @@
 #pragma once
 #include "afxwin.h"
+#include "3dVector.h"
+
 #include <gl\GL.h>
 #include <gl\GLU.h>
+#include <vector>
 
 class CLineEditControl : public CWnd
 {
@@ -20,6 +23,8 @@ public:
 
 	BOOL m_bIsMaximized;
 
+	std::vector<Vector3D> line;
+
 	float	m_fLastX;		// last known mouse X position
 	float   m_fLastY;		// last known mouse Y position
 	
@@ -30,6 +35,8 @@ public:
 	void	oglInitialize(void);
 	void	oglDrawScene(void);
 	void	oglCreate(CRect rect, CWnd *parent);
+
+
 
 	afx_msg int		OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void	OnSize(UINT nType, int cx, int cy);

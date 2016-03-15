@@ -36,6 +36,9 @@
     <ClInclude Include="LineEdit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="3dVector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="oglLineEdit.cpp">
@@ -48,6 +51,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="LineEdit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="3dVector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
