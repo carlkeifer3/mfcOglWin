@@ -14,17 +14,20 @@ public:
 	C3DLine();
 	virtual ~C3DLine(void){};
 	
-	float pointSize;
+	float m_fPointSize;
+	float m_fLineSize;
+	int   m_iCurrentSel; // id for our currently selected object
 
-	iColorRGBA	baseCol;
-	iColorRGBA  selCol;
+	iColorRGBA	m_baseCol;
+	iColorRGBA  m_selCol;
 
-	std::vector<Vector3D>	line;
-	std::vector<iColorRGBA> lineCol;
+	std::vector<Vector3D>	m_Line;
+	std::vector<iColorRGBA> m_LineCol;
 
 	void CreateLine();
 	void OpenGLDraw();
 	bool HitTest(Vector3D rayCast[], float radius);
 	
 	void addPoint(Vector3D point);
+	void movePoint(Vector3D moveto);
 };

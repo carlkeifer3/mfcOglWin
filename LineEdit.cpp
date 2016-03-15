@@ -194,20 +194,30 @@ void CLineEditControl::OnMouseMove(UINT nFlags, CPoint point)
 	// Left Mouse Button
 	if (nFlags & MK_LBUTTON)
 	{
+		if(line.m_iCurrentSel < line.m_Line.size())
+		{
+			// there should be a currently active selection
 
+			Vector3D vector;
+			vector.x = rayCast[0].x;
+			vector.y = rayCast[0].y;
+			vector.z = 0.0f;
+
+			line.movePoint(vector);
+		}
 
 	}
 	// Middle Mouse Button
-	else if ( nFlags & MK_MBUTTON)
-	{
-		m_fZoom -= (float) 0.1f * diffY;
-	}
-	// Right Mouse Button
-	else if ( nFlags & MK_RBUTTON)
-	{
-		m_fPosX += (float)diffX;
-		m_fPosY -= (float)diffY;
-	}
+	//else if ( nFlags & MK_MBUTTON)
+	//{
+	//	m_fZoom -= (float) 0.1f * diffY;
+	//}
+	// Right Mouse Button this movement has to be stopped
+	//else if ( nFlags & MK_RBUTTON)
+	//{
+	//	m_fPosX += (float)diffX;
+	//	m_fPosY -= (float)diffY;
+	//}
 	else
 	{
 		Vector3D unitVec = rayCast[1] - rayCast[0];
@@ -225,7 +235,6 @@ void CLineEditControl::OnMouseMove(UINT nFlags, CPoint point)
 	OnDraw(NULL);
 	CWnd::OnMouseMove(nFlags, point);
 }
-
 
 void CLineEditControl::OnLButtonDown(UINT nFlags, CPoint point)
 {
@@ -250,7 +259,6 @@ void CLineEditControl::OnLButtonDown(UINT nFlags, CPoint point)
 
 	CWnd::OnLButtonDown(nFlags, point);
 }
-
 
 void CLineEditControl::OnLButtonUp(UINT nFlags, CPoint point)
 {

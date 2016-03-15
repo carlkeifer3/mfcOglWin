@@ -19,7 +19,7 @@ bool Vector3D::operator==(const Vector3D &v)
 {
 	Vector3D vector = *this;
 
-	if( vector.x == v.x && vector.y == v.x && vector.z == v.z)
+	if( vector.x == v.x && vector.y == v.y && vector.z == v.z)
 	{
 		return TRUE;
 	}
