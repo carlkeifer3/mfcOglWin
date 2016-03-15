@@ -1,14 +1,24 @@
-﻿Build started 3/15/2016 11:56:27 AM.
-     1>Project "C:\Users\testex\Documents\GitHub\oglLineEdit\oglLineEdit\oglLineEdit.vcxproj" on node 2 (Rebuild target(s)).
+﻿Build started 3/15/2016 1:32:38 PM.
+     1>Project "C:\Users\testex\Documents\GitHub\oglLineEdit\oglLineEdit\oglLineEdit.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D CODE_ANALYSIS /D WIN32 /D _WINDOWS /D _DEBUG /D _UNICODE /D UNICODE /D _AFXDLL /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp"Debug\oglLineEdit.pch.codeanalysis" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze /analyze:log "Debug\stdafx.cpp.nativecodeanalysis.xml" /analyze:pluginlocalespc.dll /errorReport:prompt   /analyze:quiet stdafx.cpp
-         stdafx.cpp
-     1>c:\users\testex\documents\github\ogllineedit\ogllineedit\stdafx.cpp(3): error C2059: syntax error : '<<'
-     1>c:\users\testex\documents\github\ogllineedit\ogllineedit\stdafx.cpp(7): error C2059: syntax error : 'bad suffix on number'
-     1>c:\program files (x86)\microsoft visual studio 11.0\vc\include\sal.h(2367): error C2143: syntax error : missing ';' before '{'
-     1>c:\program files (x86)\microsoft visual studio 11.0\vc\include\sal.h(2367): error C2447: '{' : missing function header (old-style formal list?)
-     1>Done Building Project "C:\Users\testex\Documents\GitHub\oglLineEdit\oglLineEdit\oglLineEdit.vcxproj" (Rebuild target(s)) -- FAILED.
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D _UNICODE /D UNICODE /D _AFXDLL /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\oglLineEdit.pch" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt 3dLine.cpp LineEdit.cpp oglLineEdit.cpp oglLineEditDlg.cpp
+         LineEdit.cpp
+         3dLine.cpp
+         Generating Code...
+         Skipping... (no relevant changes detected)
+         oglLineEditDlg.cpp
+         oglLineEdit.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\testex\Documents\GitHub\oglLineEdit\Debug\oglLineEdit.exe" /INCREMENTAL /NOLOGO glu32.lib opengl32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /manifestinput:"C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\Include\Manifest\dpiaware.manifest" /DEBUG /PDB:"C:\Users\testex\Documents\GitHub\oglLineEdit\Debug\oglLineEdit.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /ENTRY:"wWinMainCRTStartup" /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\testex\Documents\GitHub\oglLineEdit\Debug\oglLineEdit.lib" /MACHINE:X86 Debug\oglLineEdit.res
+         Debug\3dLine.obj
+         Debug\3dVector.obj
+         Debug\LineEdit.obj
+         Debug\oglLineEdit.obj
+         Debug\oglLineEditDlg.obj
+         Debug\stdafx.obj
+         oglLineEdit.vcxproj -> C:\Users\testex\Documents\GitHub\oglLineEdit\Debug\oglLineEdit.exe
+     1>Done Building Project "C:\Users\testex\Documents\GitHub\oglLineEdit\oglLineEdit\oglLineEdit.vcxproj" (Build target(s)).
 
-Build FAILED.
+Build succeeded.
 
-Time Elapsed 00:00:01.86
+Time Elapsed 00:00:01.05

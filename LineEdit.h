@@ -1,7 +1,6 @@
 #pragma once
 #include "afxwin.h"
-#include "3dVector.h"
-#include "iColorRGBA.h"
+#include "3dLine.h"
 
 #include <gl\GL.h>
 #include <gl\GLU.h>
@@ -25,11 +24,7 @@ public:
 
 	BOOL m_bIsMaximized;
 
-	std::vector<Vector3D>	line;
-	std::vector<iColorRGBA> lineCol;
-
-	iColorRGBA	baseCol;
-	iColorRGBA  selCol;
+	C3DLine line;
 
 	float	m_fLastX;		// last known mouse X position
 	float   m_fLastY;		// last known mouse Y position

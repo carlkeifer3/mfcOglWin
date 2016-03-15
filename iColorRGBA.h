@@ -3,12 +3,13 @@
 
 class iColorRGBA
 {
+public:
 	int r;
 	int g;
 	int b;
 	int a;
 
-	void set(iColorRGBA color)
+	iColorRGBA set(iColorRGBA color)
 	{
 		iColorRGBA baseCol = *this;
 
@@ -16,6 +17,8 @@ class iColorRGBA
 		baseCol.g = color.g;
 		baseCol.b = color.b;
 		baseCol.a = color.a;
+
+		return baseCol;
 	}
 
 };
