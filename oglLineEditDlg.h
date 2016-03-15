@@ -17,6 +17,7 @@ public:
 
 private:
 	CLineEditControl m_oglLineEditWin;
+	int buttonState;
 
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV support
@@ -32,4 +33,5 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnSize(UINT nType, int cx, int cy);
+	afx_msg void OnBnClickedAddRemPts();
 };

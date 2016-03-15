@@ -42,11 +42,7 @@ void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
 END_MESSAGE_MAP()
 
-
 // CoglLineEditDlg dialog
-
-
-
 CoglLineEditDlg::CoglLineEditDlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(CoglLineEditDlg::IDD, pParent)
 {
@@ -62,11 +58,10 @@ BEGIN_MESSAGE_MAP(CoglLineEditDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_BN_CLICKED(IDC_Add_Rem_Pts, &CoglLineEditDlg::OnBnClickedAddRemPts)
 END_MESSAGE_MAP()
 
-
 // CoglLineEditDlg message handlers
-
 BOOL CoglLineEditDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
@@ -125,7 +120,6 @@ void CoglLineEditDlg::OnSysCommand(UINT nID, LPARAM lParam)
 // If you add a minimize button to your dialog, you will need the code below
 //  to draw the icon.  For MFC applications using the document/view model,
 //  this is automatically done for you by the framework.
-
 void CoglLineEditDlg::OnPaint()
 {
 	if (IsIconic())
@@ -158,3 +152,18 @@ HCURSOR CoglLineEditDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+void CoglLineEditDlg::OnBnClickedAddRemPts()
+{
+	// TODO: Add your control notification handler code here
+	//first change the button
+	if(buttonState == 0 )
+	{
+		GetDlgItem(IDC_Add_Rem_Pts)->SetWindowText(_T("Remove Points"));
+		m_oglLineEditWin.line.m_iAddRem = Points_Remove;
+		buttonState = 1;
+	}else{
+		GetDlgItem(IDC_Add_Rem_Pts)->SetWindowText(_T("Add Points"));
+		m_oglLineEditWin.line.m_iAddRem = Points_Add;
+		buttonState = 0;
+	}
+}

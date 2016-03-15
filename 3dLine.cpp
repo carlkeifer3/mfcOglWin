@@ -15,7 +15,9 @@ C3DLine::C3DLine()
 	m_selCol.b = 150;
 	m_selCol.a = 255;
 
-	m_fPointSize = 15.0f;
+	m_fPointSize = 10.0f;
+
+	m_iAddRem = Points_Add;
 }
 
 void C3DLine::addPoint(Vector3D point)
@@ -26,11 +28,7 @@ void C3DLine::addPoint(Vector3D point)
 	m_Line.push_back(point);
 	m_LineCol.push_back(color);
 
-	auto comparison = [](Vector3D left, Vector3D right)->bool{
-		return(left.y > right.y);
-	};
-
-	std::sort(m_Line.begin(), m_Line.end(), comparison);
+	orderPoints();
 
 	for( int i=0; i<(int)m_Line.size(); i++)
 	{
@@ -40,6 +38,21 @@ void C3DLine::addPoint(Vector3D point)
 			break;
 		}
 	}
+}
+
+void C3DLine::removePoint()
+{
+	m_Line.erase(m_Line.begin() + m_iCurrentSel);
+	orderPoints();
+}
+
+void C3DLine::orderPoints()
+{
+	auto comparison = [](Vector3D left, Vector3D right)->bool{
+		return(left.y > right.y);
+	};
+
+	std::sort(m_Line.begin(), m_Line.end(), comparison);
 }
 
 void C3DLine::movePoint(Vector3D moveto)

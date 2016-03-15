@@ -193,8 +193,8 @@ void CLineEditControl::OnMouseMove(UINT nFlags, CPoint point)
 
 	// Left Mouse Button
 	if (nFlags & MK_LBUTTON)
-	{
-		if(line.m_iCurrentSel < line.m_Line.size())
+	{	
+		if(line.m_iAddRem == Points_Add && line.m_iCurrentSel < line.m_Line.size())
 		{
 			// there should be a currently active selection
 
@@ -240,21 +240,31 @@ void CLineEditControl::OnLButtonDown(UINT nFlags, CPoint point)
 {
 	if(m_CurrentTool == Camera)
 	{
-		//check our line object for hits
-		GLint viewport[4];
-		glGetIntegerv (GL_VIEWPORT, viewport);
+		if(line.m_iAddRem == Points_Add)
+		{
+			//check our line object for hits
+			GLint viewport[4];
+			glGetIntegerv (GL_VIEWPORT, viewport);
 	
-		float realy = (float)viewport[3] - (GLint) point.y - 1;
-		Vector3D rayCast[3];
+			float realy = (float)viewport[3] - (GLint) point.y - 1;
+			Vector3D rayCast[3];
 
-		rayCast[0].x = (float)point.x;
-		rayCast[0].y = realy;
-		rayCast[0].z = -100.0f;
+			rayCast[0].x = (float)point.x;
+			rayCast[0].y = realy;
+			rayCast[0].z = 0.0f;
 
-		// add points or move points
-		rayCast[0].z= 0.0f;
-
-		line.addPoint(rayCast[0]);
+			line.addPoint(rayCast[0]);
+		}
+	}
+	if(m_CurrentTool == Point_Sel)
+	{	
+		if(line.m_iAddRem == Points_Remove)
+		{
+			if(line.m_iCurrentSel < line.m_Line.size())
+			{
+				line.removePoint();
+			}
+		}
 	}
 
 	CWnd::OnLButtonDown(nFlags, point);
