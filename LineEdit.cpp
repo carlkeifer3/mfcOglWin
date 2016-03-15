@@ -269,15 +269,11 @@ void CLineEditControl::OnMouseMove(UINT nFlags, CPoint point)
 
 			if (hit == TRUE)
 			{
-				lineCol[i].a = selCol.a;
-				lineCol[i].g = selCol.g;
-				lineCol[i].b = selCol.b;
+				lineCol[i].set(selCol);
 			}
 			else
 			{
-				lineCol[i].a = baseCol.a;
-				lineCol[i].g = baseCol.g;
-				lineCol[i].b = baseCol.b;
+				lineCol[i].set(baseCol);
 			}
 		}
 	}

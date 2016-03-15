@@ -1,18 +1,12 @@
 #pragma once
 #include "afxwin.h"
 #include "3dVector.h"
+#include "iColorRGBA.h"
 
 #include <gl\GL.h>
 #include <gl\GLU.h>
 #include <vector>
 
-typedef struct iColorRGBA
-{
-	int r;
-	int g;
-	int b;
-	int a;
-}iColorRGBA;
 
 class CLineEditControl : public CWnd
 {

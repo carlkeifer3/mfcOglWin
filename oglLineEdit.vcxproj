@@ -102,7 +102,9 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="3dLine.h" />
     <ClInclude Include="3dVector.h" />
+    <ClInclude Include="iColorRGBA.h" />
     <ClInclude Include="LineEdit.h" />
     <ClInclude Include="oglLineEdit.h" />
     <ClInclude Include="oglLineEditDlg.h" />
@@ -111,6 +113,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="3dLine.cpp" />
     <ClCompile Include="3dVector.cpp" />
     <ClCompile Include="LineEdit.cpp" />
     <ClCompile Include="oglLineEdit.cpp" />

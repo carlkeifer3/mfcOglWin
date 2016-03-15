@@ -1,6 +1,9 @@
 #pragma once
 #include "afxwin.h"
 
+
+
+
 class Vector3D
 {
 public:
