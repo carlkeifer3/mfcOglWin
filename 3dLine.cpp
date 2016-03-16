@@ -27,13 +27,14 @@ C3DLine::C3DLine()
 
 	m_selCol.a = 000;
 	m_selCol.g = 255;
-	m_selCol.b = 150;
+	m_selCol.b = 000;
 	m_selCol.a = 255;
 
 	m_fPointSize = 10.0f;
+	m_fLineSize = 2.0f;
 
 	m_iAddRem = Points_Add;
-	m_iCurrentSel = NULL;
+	m_iVertID = NULL;
 }
 
 int C3DLine::addPoint(CVector3D point)
@@ -47,20 +48,24 @@ int C3DLine::addPoint(CVector3D point)
 		m_vertices.push_back(point);
 		m_VertCol.push_back(m_PointCol);
 
-		orderPoints();
+		//orderPoints();
+
+		// now we link the new point to our selected segment
+
+		// then we make a new segment to go the rest of the way
 
 		for( int i=0; i<(int)m_vertices.size(); i++)
 		{
 			if(m_vertices[i] == point)
 			{
-				m_iCurrentSel = i;
+				m_iVertID = i;
 				return i;
 			}
 		}
 	}
 	else
 	{
-		m_iCurrentSel = v;
+		m_iVertID = v;
 		return v;
 	}
 	return NULL;
@@ -95,11 +100,59 @@ void C3DLine::setSegment(CVector3D vertA, CVector3D vertB)
 	// but for now this is fine
 
 	m_Segments.push_back(segment);
+
+	m_fLineLength = LineLength();
+}
+
+float C3DLine::LineLength()
+{
+	float length = 0.0f;
+
+	for ( int i=0; i<(int)m_Segments.size(); i++)
+	{
+		float segLen =  segmentLength(m_vertices[m_Segments[i].a], m_vertices[m_Segments[i].b]);
+		length += length + segLen;
+	}
+
+	return length;
+}
+
+float C3DLine::segmentLength(CVector3D vertA, CVector3D vertB)
+{
+	CVector3D D = vertA - vertB;
+	D = D^2.0f;
+
+	return sqrt((float)(D.x + D.y + D.z));
+}
+
+CVector3D C3DLine::ClosestPoint(CVector3D point, int seg)
+{
+	int p = m_Segments[seg].a;
+	int v = m_Segments[seg].b;
+
+	CVector3D lineDiffVect = m_vertices[v] - m_vertices[p];
+
+	CVector3D w = point - m_vertices[p];
+	float vsq = lineDiffVect * lineDiffVect;
+	float proj = w * lineDiffVect;
+
+	return m_vertices[p] + lineDiffVect*(proj/vsq);
 }
 
 void C3DLine::removePoint()
 {
-	m_vertices.erase(m_vertices.begin() + m_iCurrentSel);
+	// find the currently grabbed point in the array
+
+	// then find out which segments he belongs to
+
+	// now we should remove the one segment
+
+	// and re assign the other
+
+	// now we delete the vertice from the array
+	m_vertices.erase(m_vertices.begin() + m_iVertID);
+
+	// this should no longer be neccessary
 	orderPoints();
 }
 
@@ -134,9 +187,9 @@ void C3DLine::orderPoints()
 
 void C3DLine::movePoint(CVector3D moveto)
 {
-	m_vertices[m_iCurrentSel].x = moveto.x;
-	m_vertices[m_iCurrentSel].y = moveto.y;
-	m_vertices[m_iCurrentSel].z = moveto.z;
+	m_vertices[m_iVertID].x = moveto.x;
+	m_vertices[m_iVertID].y = moveto.y;
+	m_vertices[m_iVertID].z = moveto.z;
 }
 
 void C3DLine::CreateLine()
@@ -191,7 +244,7 @@ void C3DLine::drawLine()
 	glPolygonMode(GL_FRONT, GL_LINE);
 	glPolygonMode(GL_FRONT, GL_FILL);
 
-	glLineWidth(2.0f);
+	glLineWidth(m_fLineSize);
 	glBegin(GL_LINES);
 	for(int i=0; i<(int)m_Segments.size(); i++)
 	{
@@ -227,7 +280,7 @@ bool C3DLine::HitTest(CVector3D rayCast[], float radius)
 		{
 			m_VertCol[i] = m_VertCol[i].set(m_selCol);
 
-			m_iCurrentSel = i;
+			m_iVertID = i;
 
 			return TRUE;
 		}
@@ -235,12 +288,37 @@ bool C3DLine::HitTest(CVector3D rayCast[], float radius)
 		{
 			m_VertCol[i] = m_VertCol[i].set(m_PointCol);
 
-			m_iCurrentSel = NULL;
+			m_iVertID = NULL;
 		}
 	}
 
-	// now we can run our hit test on our segments
+	rayCast[0].z = 0.0f;
 
+	// now we can run our hit test on our segments
+	for (int i=0; i<(int)m_Segments.size();i++)
+	{
+
+
+		CVector3D check = ClosestPoint(rayCast[0], i);
+		float distance = segmentLength(rayCast[0], check);
+
+		rayCast[0].trace("Hit Point");
+		check.trace("Check Point");
+
+		if (distance < 4.0f)
+		{
+			if (m_iVertID == NULL)
+			{
+				m_segmentCol[i] = m_segmentCol[i].set(m_selCol);
+				m_iSegID = i;
+			}
+		}
+		else
+		{
+			m_segmentCol[i] = m_segmentCol[i].set(m_LineCol);
+			m_iSegID = NULL;
+		}
+	}
 
 	return FALSE;
 }

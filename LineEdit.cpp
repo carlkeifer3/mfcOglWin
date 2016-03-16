@@ -186,7 +186,7 @@ void CLineEditControl::OnMouseMove(UINT nFlags, CPoint point)
 	// Left Mouse Button
 	if (nFlags & MK_LBUTTON)
 	{	
-		if(line.m_iAddRem == Points_Add && line.m_iCurrentSel != NULL)
+		if(line.m_iAddRem == Points_Add && line.m_iVertID != NULL)
 		{
 			// there should be a currently active selection
 
@@ -252,7 +252,7 @@ void CLineEditControl::OnLButtonDown(UINT nFlags, CPoint point)
 	{	
 		if(line.m_iAddRem == Points_Remove)
 		{
-			if(line.m_iCurrentSel != NULL)
+			if(line.m_iVertID != NULL)
 			{
 				line.removePoint();
 			}

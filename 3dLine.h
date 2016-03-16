@@ -28,8 +28,10 @@ public:
 	
 	float m_fPointSize;
 	float m_fLineSize;
-	int   m_iCurrentSel; // id for our currently selected object
-	int   m_iAddRem;	 // are we adding points or removing points
+	float m_fLineLength;	// float variable that stores our line length
+	int   m_iVertID;		// id for our currently selected vertex
+	int   m_iSegID;			// id for our currently selected segment
+	int   m_iAddRem;		// are we adding points or removing points
 
 	bool m_drawLine;
 	bool m_drawPoints;
@@ -44,6 +46,10 @@ public:
 	void OpenGLDraw();
 	bool HitTest(CVector3D rayCast[], float radius);
 	
+	float LineLength();
+	float segmentLength(CVector3D vertA, CVector3D vertB);
+	CVector3D ClosestPoint(CVector3D point, int seg);
+
 	int addPoint(CVector3D point);
 	void movePoint(CVector3D moveto);
 	void removePoint();
