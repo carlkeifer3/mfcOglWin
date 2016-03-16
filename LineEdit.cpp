@@ -186,7 +186,7 @@ void CLineEditControl::OnMouseMove(UINT nFlags, CPoint point)
 	// Left Mouse Button
 	if (nFlags & MK_LBUTTON)
 	{	
-		if(line.m_iAddRem == Points_Add && line.m_iCurrentSel < (int)line.m_Line.size())
+		if(line.m_iAddRem == Points_Add && line.m_iCurrentSel != NULL)
 		{
 			// there should be a currently active selection
 
@@ -214,8 +214,8 @@ void CLineEditControl::OnMouseMove(UINT nFlags, CPoint point)
 	{
 		CVector3D unitVec = rayCast[1] - rayCast[0];
 		CVector3D unitPow = unitVec^2.0f;
-		float L = (float)sqrt(unitPow.x + unitPow.y + unitPow.z);
-		rayCast[2] = unitVec / L;
+		float Len = (float)sqrt(unitPow.x + unitPow.y + unitPow.z);
+		rayCast[2] = unitVec / Len;
 		
 		bool hit = line.HitTest(rayCast, 15.0f);
 
@@ -252,7 +252,7 @@ void CLineEditControl::OnLButtonDown(UINT nFlags, CPoint point)
 	{	
 		if(line.m_iAddRem == Points_Remove)
 		{
-			if(line.m_iCurrentSel < (int)line.m_Line.size())
+			if(line.m_iCurrentSel != NULL)
 			{
 				line.removePoint();
 			}

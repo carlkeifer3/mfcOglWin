@@ -1,7 +1,12 @@
-﻿Build started 3/15/2016 4:46:06 PM.
+﻿Build started 3/16/2016 11:30:06 AM.
      1>Project "C:\Users\testex\Documents\GitHub\oglLineEdit\oglLineEdit\oglLineEdit.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D _UNICODE /D UNICODE /D _AFXDLL /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\oglLineEdit.pch" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt LineEdit.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D _UNICODE /D UNICODE /D _AFXDLL /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\oglLineEdit.pch" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt 3dLine.cpp LineEdit.cpp oglLineEdit.cpp oglLineEditDlg.cpp
+         3dLine.cpp
+         Generating Code...
+         Skipping... (no relevant changes detected)
+         oglLineEditDlg.cpp
+         oglLineEdit.cpp
          LineEdit.cpp
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\testex\Documents\GitHub\oglLineEdit\Debug\oglLineEdit.exe" /INCREMENTAL /NOLOGO glu32.lib opengl32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /manifestinput:"C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\Include\Manifest\dpiaware.manifest" /DEBUG /PDB:"C:\Users\testex\Documents\GitHub\oglLineEdit\Debug\oglLineEdit.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /ENTRY:"wWinMainCRTStartup" /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\testex\Documents\GitHub\oglLineEdit\Debug\oglLineEdit.lib" /MACHINE:X86 Debug\oglLineEdit.res
@@ -16,4 +21,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.83
+Time Elapsed 00:00:00.87
