@@ -33,8 +33,11 @@ public:
 	int   m_iSegID;			// id for our currently selected segment
 	int   m_iAddRem;		// are we adding points or removing points
 
-	bool m_drawLine;
-	bool m_drawPoints;
+	int   m_iMaxVerts;
+	int   m_iMaxSegs;
+
+	bool  m_drawLine;
+	bool  m_drawPoints;
 
 	iColorRGBA	m_PointCol;
 	iColorRGBA  m_LineCol;

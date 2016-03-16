@@ -186,7 +186,7 @@ void CLineEditControl::OnMouseMove(UINT nFlags, CPoint point)
 	// Left Mouse Button
 	if (nFlags & MK_LBUTTON)
 	{	
-		if(line.m_iAddRem == Points_Add && line.m_iVertID != NULL)
+		if(line.m_iAddRem == Points_Add && line.m_iVertID != line.m_iMaxVerts)
 		{
 			// there should be a currently active selection
 
@@ -199,17 +199,6 @@ void CLineEditControl::OnMouseMove(UINT nFlags, CPoint point)
 		}
 
 	}
-	// Middle Mouse Button
-	//else if ( nFlags & MK_MBUTTON)
-	//{
-	//	m_fZoom -= (float) 0.1f * diffY;
-	//}
-	// Right Mouse Button this movement has to be stopped
-	//else if ( nFlags & MK_RBUTTON)
-	//{
-	//	m_fPosX += (float)diffX;
-	//	m_fPosY -= (float)diffY;
-	//}
 	else
 	{
 		CVector3D unitVec = rayCast[1] - rayCast[0];

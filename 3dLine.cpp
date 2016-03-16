@@ -39,34 +39,43 @@ C3DLine::C3DLine()
 
 int C3DLine::addPoint(CVector3D point)
 {
-	// here we should check point to see if it exists
-	int v = vertCheck(point);
-
-	// new vertex
-	if ( v == NULL)
+	if(m_iSegID !=  m_iMaxSegs)
 	{
-		m_vertices.push_back(point);
-		m_VertCol.push_back(m_PointCol);
+		// here we should check point to see if it exists
+		int v = vertCheck(point);
 
-		//orderPoints();
-
-		// now we link the new point to our selected segment
-
-		// then we make a new segment to go the rest of the way
-
-		for( int i=0; i<(int)m_vertices.size(); i++)
+		// new vertex
+		if ( v == NULL)
 		{
-			if(m_vertices[i] == point)
-			{
-				m_iVertID = i;
-				return i;
-			}
+			m_vertices.push_back(point);
+			m_VertCol.push_back(m_PointCol);
+			m_iMaxVerts = m_vertices.size()+2;
+
+			int V = m_vertices.size()-1;
+
+			//orderPoints();
+			int b = m_Segments[m_iSegID].b;
+			// now we link the new point to our selected segment
+			m_Segments[m_iSegID].b = V;
+
+			// then we make a new segment to go the rest of the way
+			CLineIndex segment;
+			segment.a = V;
+			segment.b = b;
+
+			m_Segments.push_back(segment);
+			m_segmentCol.push_back(m_LineCol);
+			m_iMaxSegs = m_Segments.size()+2;
+
+			m_iVertID = V;
+			m_iSegID = m_iMaxSegs;
+			return V;
 		}
-	}
-	else
-	{
-		m_iVertID = v;
-		return v;
+		else
+		{
+			m_iVertID = v;
+			return v;
+		}
 	}
 	return NULL;
 }
@@ -210,12 +219,14 @@ void C3DLine::CreateLine()
 
 	m_vertices.push_back(point);
 	m_VertCol.push_back(m_PointCol);
+	m_iMaxVerts = m_vertices.size()+2;
 
 	segment.a = 0;
 	segment.b = 1;
 
 	m_Segments.push_back(segment);
 	m_segmentCol.push_back(m_LineCol);
+	m_iMaxSegs = m_Segments.size()+2;
 }
 
 void C3DLine::ClearLine()
@@ -288,7 +299,7 @@ bool C3DLine::HitTest(CVector3D rayCast[], float radius)
 		{
 			m_VertCol[i] = m_VertCol[i].set(m_PointCol);
 
-			m_iVertID = NULL;
+			m_iVertID = m_iMaxVerts;
 		}
 	}
 
@@ -302,21 +313,19 @@ bool C3DLine::HitTest(CVector3D rayCast[], float radius)
 		CVector3D check = ClosestPoint(rayCast[0], i);
 		float distance = segmentLength(rayCast[0], check);
 
-		rayCast[0].trace("Hit Point");
-		check.trace("Check Point");
-
 		if (distance < 4.0f)
 		{
-			if (m_iVertID == NULL)
+			if (m_iVertID == m_iMaxVerts)
 			{
 				m_segmentCol[i] = m_segmentCol[i].set(m_selCol);
 				m_iSegID = i;
+				break;
 			}
 		}
 		else
 		{
 			m_segmentCol[i] = m_segmentCol[i].set(m_LineCol);
-			m_iSegID = NULL;
+			m_iSegID = m_iMaxSegs;
 		}
 	}
 
