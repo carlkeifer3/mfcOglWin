@@ -290,9 +290,14 @@ bool C3DLine::HitTest(CVector3D rayCast[], float radius)
 		if (hit == TRUE)
 		{
 			m_VertCol[i] = m_VertCol[i].set(m_selCol);
-
 			m_iVertID = i;
 
+			// make sure there is no selected edge
+			if (m_iSegID != m_iMaxSegs)
+			{
+				m_segmentCol[m_iSegID] = m_segmentCol[m_iSegID].set(m_LineCol);
+				m_iSegID = m_iMaxSegs;
+			}
 			return TRUE;
 		}
 		else
@@ -313,12 +318,18 @@ bool C3DLine::HitTest(CVector3D rayCast[], float radius)
 		CVector3D check = ClosestPoint(rayCast[0], i);
 		float distance = segmentLength(rayCast[0], check);
 
-		if (distance < 4.0f)
+		float segLength = segmentLength(m_vertices[m_Segments[i].a], m_vertices[m_Segments[i].b]);
+		float slA = segmentLength(m_vertices[m_Segments[i].a], check);
+		float slB = segmentLength(m_vertices[m_Segments[i].b], check);
+
+
+		if (distance < 4.0f && slA < segLength && slB < segLength)
 		{
 			if (m_iVertID == m_iMaxVerts)
 			{
 				m_segmentCol[i] = m_segmentCol[i].set(m_selCol);
 				m_iSegID = i;
+
 				break;
 			}
 		}
